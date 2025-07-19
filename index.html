@@ -1,40 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Our Site</title>
-    <!-- Tailwind CSS CDN for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font for a modern look */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Localvani - Empowering Local Businesses</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, #6A5ACD, #4B0082);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      color: white;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f0f0f0;
+    }
+
+    .cta-btn {
+      background-color: white;
+      color: #6A5ACD;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background-color: #e6e6fa;
+    }
+
+    /* Hero Section */
+    section.hero {
+      background: linear-gradient(90deg, #E6E6FA, #F0E6FA);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero-buttons button {
+      background-color: #6A5ACD;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-buttons button:hover {
+      background-color: #4B0082;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+
+    /* Features Section */
+    section.features {
+      padding: 4rem 2rem;
+      background-color: #fff;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background-color: #f9f9f9;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    /* Testimonials Section */
+    section.testimonials {
+      background-color: #f3e8ff;
+      padding: 4rem 2rem;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #4B0082;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .testimonial-card img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    /* Pricing & Launch Section */
+    section.pricing {
+      padding: 4rem 2rem;
+      background-color: #fff;
+    }
+
+    .pricing h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing p {
+      text-align: center;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .pricing-button {
+      display: flex;
+      justify-content: center;
+    }
+
+    .pricing-button button {
+      background-color: #6A5ACD;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .pricing-button button:hover {
+      background-color: #4B0082;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #4B0082;
+      color: white;
+      padding: 2rem 1rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-contact a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .social-icons a {
+      margin: 0 0.5rem;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .footer-links a {
+      margin: 0 0.5rem;
+      color: white;
+      text-decoration: underline;
+    }
+
+    .copyright {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero img {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
-    <!-- Main container for the welcome message -->
-    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl max-w-2xl w-full text-center transform transition-all duration-300 hover:scale-105">
-        <!-- Welcome Heading -->
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Welcome to Our <span class="text-indigo-600">Awesome</span> Community!
-        </h1>
+<body>
 
-        <!-- Subtitle/Description -->
-        <p class="text-lg md:text-xl text-gray-600 mb-8">
-            We're thrilled to have you here. Explore our features, connect with others, and discover what makes us unique.
-        </p>
-
-        <!-- Call to Action Button -->
-        <a href="#" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
-            Get Started Now
-        </a>
-
-        <!-- Optional: Small footer/motto -->
-        <p class="text-sm text-gray-400 mt-8">
-            "Your journey begins here."
-        </p>
+  <!-- Header -->
+  <header>
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="logo">Localvani</div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="cta-btn">Join the Pilot Program</button>
     </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Unlock the Power of Local Business Growth</h1>
+    <p>Localvani empowers local shops and retail businesses in Pune with tools to foster recurring customer engagement, streamline operations, and drive data-driven growth.</p>
+    <div class="hero-buttons">
+      <button>Learn More</button>
+      <button>Request Invite</button>
+    </div>
+    <img src="https://placehold.co/600x400 " alt="Hero Image" />
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2>How Localvani Empowers Your Business</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <img src="https://placehold.co/150x150 " alt="Engagement Icon" />
+        <h3>Enhance Customer Engagement</h3>
+        <p>Understand customer preferences, send personalized offers, and create effective loyalty programs to build lasting relationships.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://placehold.co/150x150 " alt="Process Icon" />
+        <h3>Streamline Business Processes</h3>
+        <p>Optimize internal operations with features like inventory management, sales tracking, and order processing.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://placehold.co/150x150 " alt="Data Icon" />
+        <h3>Enable Data-Driven Growth</h3>
+        <p>Gain valuable insights into customer behavior and sales trends to make informed decisions and identify new opportunities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <h2>Our Customers Say It Best</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <img src="https://placehold.co/50x50 " alt="Avatar" />
+        <p>"Since using Localvani, our repeat customer rate has increased by 30%. The app’s loyalty program has been a game-changer!"</p>
+        <p><strong>Mr. Rajesh Patel</strong></p>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://placehold.co/50x50 " alt="Avatar" />
+        <p>"Localvani helps us manage inventory effortlessly. We no longer worry about stockouts or overstocking."</p>
+        <p><strong>Ms. Priya Sharma</strong></p>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://placehold.co/50x50 " alt="Avatar" />
+        <p>"The insights provided by Localvani have helped us identify new product categories that our customers love."</p>
+        <p><strong>Mr. Anand Singh</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing & Launch Section -->
+  <section class="pricing" id="pricing">
+    <h2>Ready to Join the Localvani Revolution?</h2>
+    <p>Localvani is set to launch on Google Pay on August 1st. Currently, it's an invite-only pilot program.</p>
+    <p>During the pilot phase, Localvani is free for all participating businesses. After the launch, pricing will be affordable and tailored to meet the needs of local retailers.</p>
+    <div class="pricing-button">
+      <button>Request Invite</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container mx-auto footer-content">
+      <div class="footer-contact">
+        <p>Contact Us:</p>
+        <a href="mailto:info@localvani.com">info@localvani.com</a><br />
+        <a href="tel:+911234567890">+91 1234567890</a>
+      </div>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="copyright">
+        © 2023 Localvani. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
