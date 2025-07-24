@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Localvani - Empowering Local Businesses</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Reset and base styles */
     * {
@@ -17,6 +18,14 @@
       line-height: 1.6;
       color: #333;
       background-color: #fff;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     a {
@@ -31,231 +40,573 @@
       z-index: 1000;
       background: linear-gradient(90deg, #6A5ACD, #4B0082);
       color: white;
-      padding: 1rem 2rem;
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     header .logo {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo i {
+      margin-right: 10px;
+      color: #FFD700;
     }
 
     nav a {
       margin-left: 1.5rem;
       color: white;
       transition: color 0.3s ease;
+      font-weight: 500;
     }
 
     nav a:hover {
-      color: #f0f0f0;
+      color: #FFD700;
     }
 
     .cta-btn {
       background-color: white;
       color: #6A5ACD;
-      padding: 0.6rem 1.2rem;
-      border-radius: 25px;
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
       font-weight: bold;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      border: 2px solid white;
+      cursor: pointer;
     }
 
     .cta-btn:hover {
-      background-color: #e6e6fa;
+      background-color: transparent;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
     /* Hero Section */
     section.hero {
-      background: linear-gradient(90deg, #E6E6FA, #F0E6FA);
-      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #E6E6FA, #F0E6FA, #D8BFD8);
+      padding: 5rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: #4B0082;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       max-width: 700px;
       margin: 0 auto 2rem;
+      color: #555;
     }
 
     .hero-buttons {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
     }
 
     .hero-buttons button {
       background-color: #6A5ACD;
       color: white;
-      padding: 0.6rem 1.2rem;
+      padding: 0.8rem 1.8rem;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(106, 90, 205, 0.3);
     }
 
     .hero-buttons button:hover {
       background-color: #4B0082;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(106, 90, 205, 0.4);
+    }
+
+    .hero-buttons .secondary-btn {
+      background-color: transparent;
+      border: 2px solid #6A5ACD;
+      color: #6A5ACD;
+    }
+
+    .hero-buttons .secondary-btn:hover {
+      background-color: #6A5ACD;
+      color: white;
+    }
+
+    .hero-image-container {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
     .hero img {
       width: 100%;
-      max-width: 600px;
       height: auto;
-      border-radius: 10px;
-      margin-top: 2rem;
+      display: block;
     }
 
     /* Features Section */
     section.features {
-      padding: 4rem 2rem;
+      padding: 5rem 2rem;
       background-color: #fff;
     }
 
-    .features h2 {
+    .section-header {
       text-align: center;
-      font-size: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: #4B0082;
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
     }
 
     .feature-card {
-      background-color: #f9f9f9;
-      padding: 2rem;
-      border-radius: 10px;
+      background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+      padding: 2.5rem;
+      border-radius: 15px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(106, 90, 205, 0.1);
     }
 
-    .feature-card img {
-      width: 60px;
-      height: 60px;
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(106, 90, 205, 0.2);
+      border-color: rgba(106, 90, 205, 0.3);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #6A5ACD, #4B0082);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: white;
+      font-size: 2rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
       margin-bottom: 1rem;
+      color: #4B0082;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #6A5ACD, #4B0082);
+      padding: 4rem 2rem;
+      color: white;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .stat-item h3 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #FFD700;
+    }
+
+    .stat-item p {
+      font-size: 1.1rem;
+      opacity: 0.9;
     }
 
     /* Testimonials Section */
     section.testimonials {
-      background-color: #f3e8ff;
-      padding: 4rem 2rem;
-    }
-
-    .testimonials h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #4B0082;
+      background-color: #f8f0ff;
+      padding: 5rem 2rem;
     }
 
     .testimonial-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
     }
 
     .testimonial-card {
       background-color: #fff;
-      padding: 2rem;
-      border-radius: 10px;
+      padding: 2.5rem;
+      border-radius: 15px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .testimonial-card img {
-      width: 50px;
-      height: 50px;
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(106, 90, 205, 0.15);
+    }
+
+    .testimonial-card::before {
+      content: """;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 5rem;
+      color: #6A5ACD;
+      opacity: 0.1;
+      font-family: Georgia, serif;
+    }
+
+    .testimonial-avatar {
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      margin-bottom: 1rem;
+      margin: 0 auto 1.5rem;
+      object-fit: cover;
+      border: 3px solid #6A5ACD;
     }
 
-    /* Pricing & Launch Section */
-    section.pricing {
-      padding: 4rem 2rem;
+    .testimonial-card p {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .testimonial-card .customer-name {
+      font-weight: bold;
+      color: #4B0082;
+    }
+
+    .testimonial-card .customer-title {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* Launch Info Section */
+    .launch-info {
+      background: linear-gradient(135deg, #4B0082, #2C004D);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .launch-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .launch-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #FFD700;
+    }
+
+    .launch-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+      min-width: 100px;
+    }
+
+    .countdown-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #FFD700;
+    }
+
+    .countdown-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .launch-button {
+      background-color: #FFD700;
+      color: #4B0082;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .launch-button:hover {
+      background-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Additional Features */
+    .additional-features {
+      padding: 5rem 2rem;
       background-color: #fff;
     }
 
-    .pricing h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .pricing p {
-      text-align: center;
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-
-    .pricing-button {
+    .feature-item {
       display: flex;
-      justify-content: center;
+      align-items: flex-start;
+      gap: 1rem;
     }
 
-    .pricing-button button {
-      background-color: #6A5ACD;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    .feature-item i {
+      color: #6A5ACD;
+      font-size: 1.5rem;
+      min-width: 30px;
+      margin-top: 5px;
     }
 
-    .pricing-button button:hover {
-      background-color: #4B0082;
+    .feature-item-content h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #4B0082;
+    }
+
+    .feature-item-content p {
+      color: #666;
+      line-height: 1.6;
     }
 
     /* Footer */
     footer {
-      background-color: #4B0082;
+      background-color: #1a1a2e;
       color: white;
-      padding: 2rem 1rem;
+      padding: 4rem 2rem 2rem;
     }
 
-    .footer-content {
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: #FFD700;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: #6A5ACD;
+    }
+
+    .footer-column p, .footer-column a {
+      color: #ccc;
+      margin-bottom: 0.8rem;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column a:hover {
+      color: #FFD700;
+    }
+
+    .social-icons {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       gap: 1rem;
-    }
-
-    .footer-contact a {
-      color: white;
-      text-decoration: underline;
+      margin-top: 1rem;
     }
 
     .social-icons a {
-      margin: 0 0.5rem;
-      color: white;
-      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
     }
 
-    .footer-links a {
-      margin: 0 0.5rem;
-      color: white;
-      text-decoration: underline;
+    .social-icons a:hover {
+      background: #6A5ACD;
+      transform: translateY(-3px);
     }
 
     .copyright {
-      margin-top: 1rem;
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
       font-size: 0.9rem;
     }
 
+    /* Responsive Design */
     @media (max-width: 768px) {
-      .hero img {
-        max-width: 100%;
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #6A5ACD;
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav a {
+        margin: 0;
+        padding: 0.5rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .countdown {
+        flex-wrap: wrap;
+      }
+
+      .countdown-item {
+        min-width: 80px;
+        padding: 1rem;
+      }
+
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      .feature-card {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -264,105 +615,292 @@
 
   <!-- Header -->
   <header>
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="logo">Localvani</div>
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-store"></i>
+        Localvani
+      </div>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
       <nav>
         <a href="#features">Features</a>
         <a href="#testimonials">Testimonials</a>
-        <a href="#about">About Us</a>
+        <a href="#launch">Launch Info</a>
+        <a href="#additional">More Features</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="cta-btn">Join the Pilot Program</button>
+      <button class="cta-btn">Join Pilot Program</button>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Unlock the Power of Local Business Growth</h1>
-    <p>Localvani empowers local shops and retail businesses in Pune with tools to foster recurring customer engagement, streamline operations, and drive data-driven growth.</p>
-    <div class="hero-buttons">
-      <button>Learn More</button>
-      <button>Request Invite</button>
+    <div class="hero-content">
+      <h1>Unlock the Power of Local Business Growth</h1>
+      <p>Localvani empowers local shops and retail businesses in Pune with cutting-edge tools to foster recurring customer engagement, streamline operations, and drive data-driven growth.</p>
+      <div class="hero-buttons">
+        <button>Explore Features</button>
+        <button class="secondary-btn">Request Invite</button>
+      </div>
     </div>
-    <img src="https://placehold.co/600x400 " alt="Hero Image" />
+    <div class="hero-image-container">
+      <img src="https://placehold.co/700x450/6A5ACD/FFFFFF?text=Localvani+Dashboard" alt="Localvani Dashboard" />
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>30%</h3>
+          <p>Increase in Repeat Customers</p>
+        </div>
+        <div class="stat-item">
+          <h3>50%</h3>
+          <p>Reduction in Inventory Issues</p>
+        </div>
+        <div class="stat-item">
+          <h3>25%</h3>
+          <p>Growth in Monthly Revenue</p>
+        </div>
+        <div class="stat-item">
+          <h3>100+</h3>
+          <p>Businesses Empowered</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Features Section -->
   <section class="features" id="features">
-    <h2>How Localvani Empowers Your Business</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <img src="https://placehold.co/150x150 " alt="Engagement Icon" />
-        <h3>Enhance Customer Engagement</h3>
-        <p>Understand customer preferences, send personalized offers, and create effective loyalty programs to build lasting relationships.</p>
+    <div class="container">
+      <div class="section-header">
+        <h2>How Localvani Empowers Your Business</h2>
+        <p>Comprehensive solutions designed specifically for local retailers to thrive in the digital age</p>
       </div>
-      <div class="feature-card">
-        <img src="https://placehold.co/150x150 " alt="Process Icon" />
-        <h3>Streamline Business Processes</h3>
-        <p>Optimize internal operations with features like inventory management, sales tracking, and order processing.</p>
-      </div>
-      <div class="feature-card">
-        <img src="https://placehold.co/150x150 " alt="Data Icon" />
-        <h3>Enable Data-Driven Growth</h3>
-        <p>Gain valuable insights into customer behavior and sales trends to make informed decisions and identify new opportunities.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Enhance Customer Engagement</h3>
+          <p>Understand customer preferences, send personalized offers, and create effective loyalty programs to build lasting relationships.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <h3>Streamline Business Processes</h3>
+          <p>Optimize internal operations with features like inventory management, sales tracking, and order processing.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Enable Data-Driven Growth</h3>
+          <p>Gain valuable insights into customer behavior and sales trends to make informed decisions and identify new opportunities.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Testimonials Section -->
   <section class="testimonials" id="testimonials">
-    <h2>Our Customers Say It Best</h2>
-    <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <img src="https://placehold.co/50x50 " alt="Avatar" />
-        <p>"Since using Localvani, our repeat customer rate has increased by 30%. The app’s loyalty program has been a game-changer!"</p>
-        <p><strong>Mr. Rajesh Patel</strong></p>
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Customers Say It Best</h2>
+        <p>Real stories from businesses that transformed with Localvani</p>
       </div>
-      <div class="testimonial-card">
-        <img src="https://placehold.co/50x50 " alt="Avatar" />
-        <p>"Localvani helps us manage inventory effortlessly. We no longer worry about stockouts or overstocking."</p>
-        <p><strong>Ms. Priya Sharma</strong></p>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://placehold.co/50x50 " alt="Avatar" />
-        <p>"The insights provided by Localvani have helped us identify new product categories that our customers love."</p>
-        <p><strong>Mr. Anand Singh</strong></p>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <img src="https://placehold.co/70x70/6A5ACD/FFFFFF?text=RP" alt="Rajesh Patel" class="testimonial-avatar" />
+          <p>"Since using Localvani, our repeat customer rate has increased by 30%. The app's loyalty program has been a game-changer!"</p>
+          <p class="customer-name">Mr. Rajesh Patel</p>
+          <p class="customer-title">Owner, Patel Grocery Store</p>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://placehold.co/70x70/4B0082/FFFFFF?text=PS" alt="Priya Sharma" class="testimonial-avatar" />
+          <p>"Localvani helps us manage inventory effortlessly. We no longer worry about stockouts or overstocking. It's saved us countless hours!"</p>
+          <p class="customer-name">Ms. Priya Sharma</p>
+          <p class="customer-title">Manager, Fashion Boutique</p>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://placehold.co/70x70/FFD700/4B0082?text=AS" alt="Anand Singh" class="testimonial-avatar" />
+          <p>"The insights provided by Localvani have helped us identify new product categories that our customers love. Revenue has increased by 25%!"</p>
+          <p class="customer-name">Mr. Anand Singh</p>
+          <p class="customer-title">Owner, Electronics Shop</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing & Launch Section -->
-  <section class="pricing" id="pricing">
-    <h2>Ready to Join the Localvani Revolution?</h2>
-    <p>Localvani is set to launch on Google Pay on August 1st. Currently, it's an invite-only pilot program.</p>
-    <p>During the pilot phase, Localvani is free for all participating businesses. After the launch, pricing will be affordable and tailored to meet the needs of local retailers.</p>
-    <div class="pricing-button">
-      <button>Request Invite</button>
+  <!-- Launch Info Section -->
+  <section class="launch-info" id="launch">
+    <div class="container launch-content">
+      <h2>Ready to Join the Localvani Revolution?</h2>
+      <p>Localvani is set to launch on Google Pay on August 1st, 2023. Currently, it's an invite-only pilot program.</p>
+      
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+      
+      <p>During the pilot phase, Localvani is completely free for all participating businesses. After the launch, pricing will be affordable and tailored to meet the needs of local retailers.</p>
+      <button class="launch-button">Request Early Access</button>
+    </div>
+  </section>
+
+  <!-- Additional Features -->
+  <section class="additional-features" id="additional">
+    <div class="container">
+      <div class="section-header">
+        <h2>Advanced Features</h2>
+        <p>Beyond the basics - powerful tools for modern retailers</p>
+      </div>
+      <div class="features-list">
+        <div class="feature-item">
+          <i class="fas fa-bell"></i>
+          <div class="feature-item-content">
+            <h4>Smart Notifications</h4>
+            <p>Automated alerts for low stock, special offers, and customer birthdays to keep your business proactive.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-mobile-alt"></i>
+          <div class="feature-item-content">
+            <h4>Mobile App Integration</h4>
+            <p>Seamless connection with customer mobile apps for easy loyalty program participation and exclusive offers.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-sync-alt"></i>
+          <div class="feature-item-content">
+            <h4>Real-time Sync</h4>
+            <p>Instant synchronization across all devices and platforms to ensure your data is always up-to-date.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-shield-alt"></i>
+          <div class="feature-item-content">
+            <h4>Bank-level Security</h4>
+            <p>Enterprise-grade encryption and security protocols to protect your business data and customer information.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-language"></i>
+          <div class="feature-item-content">
+            <h4>Multi-language Support</h4>
+            <p>Support for multiple regional languages to better serve your diverse customer base in Pune.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-headset"></i>
+          <div class="feature-item-content">
+            <h4>24/7 Customer Support</h4>
+            <p>Dedicated support team available round the clock to assist with any questions or issues.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <div class="container mx-auto footer-content">
-      <div class="footer-contact">
-        <p>Contact Us:</p>
-        <a href="mailto:info@localvani.com">info@localvani.com</a><br />
-        <a href="tel:+911234567890">+91 1234567890</a>
-      </div>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-      <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>Localvani</h3>
+          <p>Empowering local businesses with smart technology solutions for sustainable growth in the digital era.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <a href="#features">Features</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#launch">Launch Info</a>
+          <a href="#additional">More Features</a>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-envelope"></i> info@localvani.com</p>
+          <p><i class="fas fa-phone"></i> +91 1234567890</p>
+          <p><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra, India</p>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">GDPR Compliance</a>
+        </div>
       </div>
       <div class="copyright">
-        © 2023 Localvani. All rights reserved.
+        &copy; 2023 Localvani. All rights reserved. Empowering Local Businesses.
       </div>
     </div>
   </footer>
 
+  <script>
+    // Mobile Menu Toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+      document.querySelector('nav').classList.toggle('active');
+    });
+
+    // Countdown Timer
+    function updateCountdown() {
+      const launchDate = new Date('August 1, 2023 00:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+      document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = "<h3>Launched!</h3>";
+      }
+    }
+
+    // Update countdown every second
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </body>
 </html>
